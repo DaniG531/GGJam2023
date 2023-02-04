@@ -8,6 +8,9 @@ public class PlayerManager : MonoBehaviour
     float m_Cooldown = 0;
     public float m_MaxCooldown;
 
+    float m_Timer;
+    public float m_MaxTimer;
+
     Rigidbody m_Rigidbody;
 
 
@@ -20,7 +23,12 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        m_Timer += Time.deltaTime;
+        if (m_Timer > m_MaxTimer)
+        {
+            m_Timer = 0;
+            m_Life -= 1;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -29,13 +37,24 @@ public class PlayerManager : MonoBehaviour
         {
             m_Life -= 1;
         }
+
+        if (collision.collider.tag == ("Nutrient"))
+        {
+            Destroy(collision.gameObject);
+
+            m_Life += 2;
+            if(m_Life > 10)
+            {
+                m_Life = 10;
+            }
+        }
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider other)
     {
         m_Cooldown += Time.deltaTime;
 
-        if (collision.collider.tag == ("Enemy") & m_Cooldown >= m_MaxCooldown)
+        if (other.GetComponent<Collider>().tag == ("Enemy") & m_Cooldown >= m_MaxCooldown)
         {
             m_Rigidbody.velocity = Vector3.zero;
             m_Life -= 1;
@@ -43,8 +62,16 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
         m_Cooldown = 0;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Enemy")
+        {
+            m_Life -= 1;
+        }
     }
 }
