@@ -274,7 +274,7 @@ public class RootMovement : MonoBehaviour
     return false;
   }
 
-  void AddLength(int newSectionsCount)
+  public void AddLength(int newSectionsCount)
   {
     for (int i = 0; i < newSectionsCount; ++i)
     {
