@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == ("Enemy"))
+        if (collision.gameObject.tag == ("Enemy"))
         {
             m_Life -= 1;
         }
@@ -47,6 +47,8 @@ public class PlayerManager : MonoBehaviour
             {
                 m_Life = 10;
             }
+
+            //collision.gameObject.GetComponent<RootMovement>().;
         }
     }
 
