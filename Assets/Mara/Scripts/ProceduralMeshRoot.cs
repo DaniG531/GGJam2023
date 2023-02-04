@@ -26,6 +26,7 @@ public class ProceduralMeshRoot : MonoBehaviour
   public Material mRootMat = null;
   private MeshRenderer mMeshRendererCmp = null;
 
+
   // Start is called before the first frame update
   void Start()
   {
@@ -66,27 +67,26 @@ public class ProceduralMeshRoot : MonoBehaviour
         List<Vector3> normals = new List<Vector3>();
         List<int> indices = new List<int>();
 
-        MyMesh completeTail = GenerateRootSection(new Vector3(0.0f, 1.0f, 0.0f),
-                                                  mRoot.Tail[0].position,
-                                                  tailCount > 1
-                                                    ? mRoot.Tail[1].position
-                                                    : mRoot.mTailParent.position,
+        MyMesh completeTail = GenerateRootSection(mRoot.mTailParent.position + new Vector3(0.0f, -1.0f, 0.0f),
+                                                  mRoot.mTailParent.position,
+                                                  mRoot.Tail[0],
                                                   mSectionsCount,
                                                   mThickness,
                                                   0);
 
-        //myList1.Concat(myList2).ToList();
 
-        for (int i = 1; i < tailCount; ++i)
+        for (int i = 0; i < tailCount; ++i)
         {
-          MyMesh newTail = GenerateRootSection(new Vector3(0.0f, 1.0f, 0.0f),
-                                                    mRoot.Tail[i].position,
-                                                    i < tailCount - 1
-                                                      ? mRoot.Tail[i + 1].position
-                                                      : mRoot.mTailParent.position,
-                                                    mSectionsCount,
-                                                    mThickness,
-                                                    mSectionsCount * 4 * i);
+          MyMesh newTail = GenerateRootSection(i == 0
+                                                 ? mRoot.mTailParent.position
+                                                 : mRoot.Tail[i - 1],
+                                               mRoot.Tail[i],
+                                               i < tailCount - 1
+                                                 ? mRoot.Tail[i + 1]
+                                                 : mRoot.Tail[i] + new Vector3(0.0f, 1.0f, 0.0f),
+                                               mSectionsCount,
+                                               mThickness,
+                                               mSectionsCount * 4 * i);
           
           completeTail.vertices = completeTail.vertices.Concat(newTail.vertices).ToList();
           completeTail.indices = completeTail.indices.Concat(newTail.indices).ToList();

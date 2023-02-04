@@ -139,42 +139,34 @@ public class RootMovement : MonoBehaviour
   public float mMaxSteeringForce = 10.0f;
   public float mSteeringMass = 50.0f;
 
-  public GameObject mDot;
-  public int mDotsCount = 10;
-  SteeringManager mTailManager = new SteeringManager();
-
   [Header ("Tail")]
   public Transform mTailParent;
-  public float mCircleDiameter;
+  public float mRootLinkMaxLenght;
 
-  private List<Transform> mTail = new List<Transform>();
-  public List<Transform> Tail
+  public int mRootParts = 25;
+
+  private List<Vector3> mPositions = new List<Vector3>();
+  private List<Vector3> mPositionProyections = new List<Vector3>();
+  private Vector3 mHeadProyections;
+  public List<Vector3> Tail
   {
     get
     {
-      return mTail;
+      return mPositions;
     }
   }
-  private List<Vector3> mPositions = new List<Vector3>();
 
-
-  float mTime = 0.0f;
 
   // Start is called before the first frame update
   void Start()
   {
     mMovementDir = mMovementDir.normalized * mMaxVelocity;
 
-    for (int i = 0; i < mDotsCount; ++i)
+    for (int i = 0; i < mRootParts; ++i)
     {
-      mTailManager.mAgents.Add(new SteeringAgent());
-      mTailManager.mAgents[i].mPos = Instantiate(mDot, mMovementDir.normalized * i * -1.0f, new Quaternion()).transform;
-      mTailManager.mAgents[i].mSpeed = mMaxVelocity;
-      mTailManager.mAgents[i].mOriginalSpeed = mMaxVelocity;
+      mPositions.Add(mTailParent.position);
+      mPositionProyections.Add(mTailParent.position);
     }
-
-
-    mPositions.Add(mTailParent.position);
   }
 
   // Update is called once per frame
@@ -188,49 +180,116 @@ public class RootMovement : MonoBehaviour
     var desired_velocity = (mousePos - center).normalized * mMaxVelocity;
     float newVel = (desired_velocity - mMovementDir.normalized * 1.0f).magnitude;
 
-    if (newVel < 1.25f)
-    {
-      newVel = Mathf.Abs(mMovementDir.magnitude - desired_velocity.magnitude);
-      newVel = mMovementDir.magnitude - newVel * 1.5f * Time.fixedDeltaTime;
-    }
-    else
-    {
-      newVel = Mathf.Abs(mMovementDir.magnitude - desired_velocity.magnitude);
-      newVel = mMovementDir.magnitude + newVel * 2.0f * Time.fixedDeltaTime;
-      newVel = Mathf.Min(newVel, mMaxVelocity);
-    }
+    //if (newVel < 1.25f)
+    //{
+    //  newVel = Mathf.Abs(mMovementDir.magnitude - desired_velocity.magnitude);
+    //  newVel = mMovementDir.magnitude - newVel * 1.5f * Time.fixedDeltaTime;
+    //}
+    //else
+    //{
+    //  newVel = Mathf.Abs(mMovementDir.magnitude - desired_velocity.magnitude);
+    //  newVel = mMovementDir.magnitude + newVel * 2.0f * Time.fixedDeltaTime;
+    //  newVel = Mathf.Min(newVel, mMaxVelocity);
+    //}
 
     var steering = desired_velocity - mMovementDir;
     steering = steering.normalized * mMaxSteeringForce;
     steering = steering / mSteeringMass;
-    mMovementDir = (mMovementDir + steering).normalized * newVel;
+    //mMovementDir = (mMovementDir + steering).normalized * newVel;
+    mMovementDir = (mMovementDir + steering).normalized * mMaxVelocity;
 
-    transform.position += mMovementDir * Time.fixedDeltaTime;
+    //transform.position += mMovementDir * Time.fixedDeltaTime;
+    mHeadProyections = transform.position + mMovementDir * Time.fixedDeltaTime;
+
+    if (RequestMove(0))
+    {
+      transform.position = mHeadProyections;
+    }
+
 
     PlaceLineAsVector(vecLine, transform.position, mMovementDir);
 
     MoveTail();
   }
 
-  void MoveTail()
+
+  public bool RequestMove(int index)
   {
-    Vector3 dir = mTailParent.position - mPositions[0];
-    float dist = dir.magnitude;
+    if (index >= mPositions.Count) return false;
 
-    if (dist > mCircleDiameter)
+    Vector3 dir;
+    float dist;
+    if (index == 0)
     {
-      mPositions.Insert(0, mPositions[0] + dir.normalized * mCircleDiameter);
+      dir = mHeadProyections - mPositions[0];
+      dist = dir.magnitude;
 
-      Transform tail = Instantiate(mTailParent, mPositions[0], Quaternion.identity);
-      mTail.Add(tail);
+      if (dist > mRootLinkMaxLenght)
+      {
+        mPositionProyections[0] = mHeadProyections - dir.normalized * mRootLinkMaxLenght;
+
+        if (RequestMove(index + 1))
+        {
+          mPositions[0] = mPositionProyections[0];
+          return true;
+        }
+        return false;
+      }
+      return true;
     }
+
+    dir = mPositionProyections[index - 1] - mPositions[index];
+    dist = dir.magnitude;
+    Vector3 dirn = dir.normalized;
+
+    if (dist > mRootLinkMaxLenght)
+    {
+      Vector3 headProy = index == 1 ? mHeadProyections : mPositionProyections[index - 2];
+
+      dir = headProy - mPositions[index];
+      dist = dir.magnitude;
+
+      if (dist > mRootLinkMaxLenght * 2.0f)
+      {
+        mPositionProyections[index - 1] = headProy - dirn * mRootLinkMaxLenght;
+        mPositionProyections[index] = headProy - dirn * mRootLinkMaxLenght * 2.0f;
+
+        if (RequestMove(index + 1))
+        {
+          mPositions[index] = mPositionProyections[index];
+          return true;
+        }
+        return false;
+      }
+
+      Vector3 midPoint = mPositions[index] + dir * 0.5f;
+      Vector3 normal = new Vector3(-dirn.y, dirn.x);
+      float nordist = Mathf.Sqrt(4 * mRootLinkMaxLenght * mRootLinkMaxLenght - dist * dist) * 0.5f;
+
+      Vector3 proyP1 = midPoint + normal * nordist;
+      float distP1 = (proyP1 - mPositions[index - 1]).magnitude;
+      Vector3 proyP2 = midPoint - normal * nordist;
+      float distP2 = (proyP2 - mPositions[index - 1]).magnitude;
+
+      mPositionProyections[index - 1] = distP1 < distP2 ? proyP1 : proyP2;
+
+      return true;
+    }
+
+    return true;
   }
 
-  void AddTail()
+  void MoveTail()
   {
-    Transform tail = Instantiate(mTailParent, mPositions[mPositions.Count - 1], Quaternion.identity);
-    mTail.Add(tail);
-    mPositions.Add(tail.position);
+
+
+    //Vector3 dir = mTailParent.position - mPositions[0];
+    //
+    //if (dir.magnitude > mRootLinkMaxLenght)
+    //{
+    //  mPositions.Insert(0, mPositions[0] + dir.normalized * mRootLinkMaxLenght);
+    //  mPositionProyections.Insert(0, mPositions[0]);
+    //}
   }
 
   Vector3 Truncate(Vector3 vec, float maxSize, float minSize = 0.0f)
