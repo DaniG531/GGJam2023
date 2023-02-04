@@ -25,8 +25,10 @@ public class EnemyNutrient : MonoBehaviour
 
         if (m_Targets.Length > 0)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(m_Target.transform.position - transform.position), m_Speed * Time.deltaTime);
-            transform.position += transform.forward * m_Speed * Time.deltaTime;
+            //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(m_Target.transform.position - transform.position), m_Speed * Time.deltaTime);
+            //transform.position += transform.forward * m_Speed * Time.deltaTime;
+            transform.LookAt(m_Target.transform.position, Vector3.back);
+            transform.position = Vector2.MoveTowards(transform.position, m_Target.transform.position, m_Speed * Time.deltaTime);
         }
 
         else
