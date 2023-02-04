@@ -169,6 +169,14 @@ public class RootMovement : MonoBehaviour
     }
   }
 
+  void Update()
+  {
+    if (Input.GetKeyDown(KeyCode.E))
+    {
+      AddLength(10);
+    }
+  }
+
   // Update is called once per frame
   void FixedUpdate()
   {
@@ -201,95 +209,79 @@ public class RootMovement : MonoBehaviour
     //transform.position += mMovementDir * Time.fixedDeltaTime;
     mHeadProyections = transform.position + mMovementDir * Time.fixedDeltaTime;
 
-    if (RequestMove(0))
+    if (RequestMove())
     {
       transform.position = mHeadProyections;
     }
 
 
     PlaceLineAsVector(vecLine, transform.position, mMovementDir);
-
-    MoveTail();
   }
 
-
-  public bool RequestMove(int index)
+  public void AdjustRoot(int firstIndex, int lastIndex)
   {
-    if (index >= mPositions.Count) return false;
+    int nodesCount = lastIndex - firstIndex + 1;
+    if (nodesCount == 2) return;
+
+    Vector3 tempHead = firstIndex == -1 ? mHeadProyections : mPositions[firstIndex];
+
+    Vector3 dir = tempHead - mPositions[lastIndex];
+    float dist = dir.magnitude;
+    Vector3 dirn = dir.normalized;
+
+    if (nodesCount == 3)
+    {
+      Vector3 midPoint = mPositions[lastIndex] + dir * 0.5f;
+      Vector3 normal = new Vector3(-dirn.y, dirn.x);
+      float nordist = Mathf.Sqrt(4 * mRootLinkMaxLenght * mRootLinkMaxLenght - dist * dist) * 0.5f;
+      
+      Vector3 proyP1 = midPoint + normal * nordist;
+      float distP1 = (proyP1 - mPositions[lastIndex - 1]).magnitude;
+      Vector3 proyP2 = midPoint - normal * nordist;
+      float distP2 = (proyP2 - mPositions[lastIndex - 1]).magnitude;
+
+      mPositions[lastIndex - 1] = distP1 < distP2 ? proyP1 : proyP2;
+
+      return;
+    }
+
+    mPositions[firstIndex + 1] = tempHead - dirn * mRootLinkMaxLenght;
+    RequestMove(firstIndex + 1);
+  }
+
+  public bool RequestMove(int firstIndex = -1)
+  {
+    if (firstIndex >= mPositions.Count) return false;
 
     Vector3 dir;
     float dist;
-    if (index == 0)
+
+    Vector3 tempHead = firstIndex == -1 ? mHeadProyections : mPositions[firstIndex];
+
+    for (int i = firstIndex + 1; i < mPositions.Count; ++i)
     {
-      dir = mHeadProyections - mPositions[0];
+      dir = tempHead - mPositions[i];
       dist = dir.magnitude;
+      Vector3 dirn = dir.normalized;
 
-      if (dist > mRootLinkMaxLenght)
+      if (dist <= mRootLinkMaxLenght * (i - firstIndex))
       {
-        mPositionProyections[0] = mHeadProyections - dir.normalized * mRootLinkMaxLenght;
-
-        if (RequestMove(index + 1))
-        {
-          mPositions[0] = mPositionProyections[0];
-          return true;
-        }
-        return false;
+        AdjustRoot(firstIndex, i);
+        return true;
       }
-      return true;
     }
 
-    dir = mPositionProyections[index - 1] - mPositions[index];
-    dist = dir.magnitude;
-    Vector3 dirn = dir.normalized;
-
-    if (dist > mRootLinkMaxLenght)
-    {
-      Vector3 headProy = index == 1 ? mHeadProyections : mPositionProyections[index - 2];
-
-      dir = headProy - mPositions[index];
-      dist = dir.magnitude;
-
-      if (dist > mRootLinkMaxLenght * 2.0f)
-      {
-        mPositionProyections[index - 1] = headProy - dirn * mRootLinkMaxLenght;
-        mPositionProyections[index] = headProy - dirn * mRootLinkMaxLenght * 2.0f;
-
-        if (RequestMove(index + 1))
-        {
-          mPositions[index] = mPositionProyections[index];
-          return true;
-        }
-        return false;
-      }
-
-      Vector3 midPoint = mPositions[index] + dir * 0.5f;
-      Vector3 normal = new Vector3(-dirn.y, dirn.x);
-      float nordist = Mathf.Sqrt(4 * mRootLinkMaxLenght * mRootLinkMaxLenght - dist * dist) * 0.5f;
-
-      Vector3 proyP1 = midPoint + normal * nordist;
-      float distP1 = (proyP1 - mPositions[index - 1]).magnitude;
-      Vector3 proyP2 = midPoint - normal * nordist;
-      float distP2 = (proyP2 - mPositions[index - 1]).magnitude;
-
-      mPositionProyections[index - 1] = distP1 < distP2 ? proyP1 : proyP2;
-
-      return true;
-    }
-
-    return true;
+    return false;
   }
 
-  void MoveTail()
+  void AddLength(int newSectionsCount)
   {
-
-
-    //Vector3 dir = mTailParent.position - mPositions[0];
-    //
-    //if (dir.magnitude > mRootLinkMaxLenght)
-    //{
-    //  mPositions.Insert(0, mPositions[0] + dir.normalized * mRootLinkMaxLenght);
-    //  mPositionProyections.Insert(0, mPositions[0]);
-    //}
+    for (int i = 0; i < newSectionsCount; ++i)
+    {
+      mPositions.Insert(0, mTailParent.position);
+      mPositionProyections.Insert(0, mTailParent.position);
+    }
+    mRootParts += newSectionsCount;
   }
 
   Vector3 Truncate(Vector3 vec, float maxSize, float minSize = 0.0f)

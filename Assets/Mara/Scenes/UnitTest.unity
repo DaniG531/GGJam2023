@@ -451,8 +451,8 @@ MonoBehaviour:
   mMaxSteeringForce: 1
   mSteeringMass: 10
   mTailParent: {fileID: 1409178266}
-  mRootLinkMaxLenght: 1
-  mRootParts: 10
+  mRootLinkMaxLenght: 0.2
+  mRootParts: 25
 --- !u!114 &470004109
 MonoBehaviour:
   m_ObjectHideFlags: 0
