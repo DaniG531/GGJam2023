@@ -13,6 +13,9 @@ public class PlayerManager : MonoBehaviour
 
     Rigidbody m_Rigidbody;
 
+    public static int m_NutrientCount;
+    public static bool m_GameOver;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +31,11 @@ public class PlayerManager : MonoBehaviour
         {
             m_Timer = 0;
             m_Life -= 1;
+        }
+
+        if(m_Life <= 0)
+        {
+            m_GameOver = true;
         }
     }
 
@@ -47,6 +55,8 @@ public class PlayerManager : MonoBehaviour
             {
                 m_Life = 10;
             }
+
+            m_NutrientCount += 1;
 
             gameObject.GetComponent<RootMovement>().AddLength(5);
         }

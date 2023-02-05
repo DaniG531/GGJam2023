@@ -44,16 +44,16 @@ public class TopdownEnemy : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             m_Idle = true;
-            Debug.Log("c");
+
         }
-        Debug.Log("b");
+
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("a");
+
         }
     }
 }
