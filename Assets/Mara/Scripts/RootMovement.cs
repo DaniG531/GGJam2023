@@ -223,6 +223,15 @@ public class RootMovement : MonoBehaviour
     int nodesCount = lastIndex - firstIndex + 1;
     if (nodesCount == 2) return;
 
+    Vector3 midPoint;
+    Vector3 normal;
+    float nordist;
+
+    Vector3 proyP1;
+    float distP1;
+    Vector3 proyP2;
+    float distP2;
+
     Vector3 tempHead = firstIndex == -1 ? mHeadProyections : mPositions[firstIndex];
 
     Vector3 dir = tempHead - mPositions[lastIndex];
@@ -231,19 +240,64 @@ public class RootMovement : MonoBehaviour
 
     if (nodesCount == 3)
     {
-      Vector3 midPoint = mPositions[lastIndex] + dir * 0.5f;
-      Vector3 normal = new Vector3(-dirn.y, dirn.x);
-      float nordist = Mathf.Sqrt(4 * mRootLinkMaxLenght * mRootLinkMaxLenght - dist * dist) * 0.5f;
+      midPoint = mPositions[lastIndex] + dir * 0.5f;
+      normal = new Vector3(-dirn.y, dirn.x);
+      nordist = Mathf.Sqrt(4 * mRootLinkMaxLenght * mRootLinkMaxLenght - dist * dist) * 0.5f;
       
-      Vector3 proyP1 = midPoint + normal * nordist;
-      float distP1 = (proyP1 - mPositions[lastIndex - 1]).magnitude;
-      Vector3 proyP2 = midPoint - normal * nordist;
-      float distP2 = (proyP2 - mPositions[lastIndex - 1]).magnitude;
+      proyP1 = midPoint + normal * nordist;
+      distP1 = (proyP1 - mPositions[lastIndex - 1]).magnitude;
+      proyP2 = midPoint - normal * nordist;
+      distP2 = (proyP2 - mPositions[lastIndex - 1]).magnitude;
 
       mPositions[lastIndex - 1] = distP1 < distP2 ? proyP1 : proyP2;
 
       return;
     }
+
+    //do
+    //{
+    //  for (int i = firstIndex + 1; i < lastIndex - 2; ++i)
+    //  {
+    //    Vector3 dir1 = mPositions[i] - tempHead;
+    //    float angle1 = Mathf.Atan2(dir1.y, dir1.x);
+    //    Vector3 dir2 = mPositions[lastIndex] - tempHead;
+    //    float angle2 = Mathf.Atan2(dir2.y, dir2.x);
+    //
+    //    float angleF = (angle1 + angle2) * 0.5f;
+    //
+    //    Vector3 posF = tempHead + new Vector3(Mathf.Cos(angleF), Mathf.Sin(angleF), 0.0f) * mRootLinkMaxLenght * (i - firstIndex);
+    //    Vector3 posTemp = tempHead + new Vector3(Mathf.Cos(angle2), Mathf.Sin(angle2), 0.0f) * mRootLinkMaxLenght * (i - firstIndex);
+    //
+    //    if ((posF - posTemp).magnitude < 0.02f)
+    //    {
+    //      mPositions[i] = posTemp;
+    //    }
+    //    else
+    //    {
+    //      mPositions[i] = posF;
+    //    }
+    //  }
+    //
+    //  dir = mPositions[lastIndex - 2] - mPositions[lastIndex];
+    //  dist = dir.magnitude;
+    //
+    //} while (dist > mRootLinkMaxLenght * 2.0f + 0.2f);
+    //
+    //dirn = dir.normalized;
+    //
+    //midPoint = mPositions[lastIndex] + dir * 0.5f;
+    //normal = new Vector3(-dirn.y, dirn.x);
+    //nordist = Mathf.Sqrt(4 * mRootLinkMaxLenght * mRootLinkMaxLenght - dist * dist) * 0.5f;
+    //
+    //proyP1 = midPoint + normal * nordist;
+    //distP1 = (proyP1 - mPositions[lastIndex - 1]).magnitude;
+    //proyP2 = midPoint - normal * nordist;
+    //distP2 = (proyP2 - mPositions[lastIndex - 1]).magnitude;
+    //
+    //mPositions[lastIndex - 1] = distP1 < distP2 ? proyP1 : proyP2;
+
+
+
 
     mPositions[firstIndex + 1] = tempHead - dirn * mRootLinkMaxLenght;
     RequestMove(firstIndex + 1);

@@ -26,6 +26,8 @@ public class ProceduralMeshRoot : MonoBehaviour
   public Material mRootMat = null;
   private MeshRenderer mMeshRendererCmp = null;
 
+  private float mUVLenght = 0.0f;
+
 
   // Start is called before the first frame update
   void Start()
@@ -62,6 +64,8 @@ public class ProceduralMeshRoot : MonoBehaviour
       int tailCount = mRoot.Tail.Count;
       if (tailCount > 0)
       {
+        mUVLenght = 0.0f;
+
         List<Vector3> vertices = new List<Vector3>();
         List<Vector2> uvs = new List<Vector2>();
         List<Vector3> normals = new List<Vector3>();
@@ -89,11 +93,15 @@ public class ProceduralMeshRoot : MonoBehaviour
                                                mSectionsCount * 4 * i);
           
           completeTail.vertices = completeTail.vertices.Concat(newTail.vertices).ToList();
+          completeTail.uvs = completeTail.uvs.Concat(newTail.uvs).ToList();
+          completeTail.normals = completeTail.normals.Concat(newTail.normals).ToList();
           completeTail.indices = completeTail.indices.Concat(newTail.indices).ToList();
         }
 
         mMesh = new Mesh();
         mMesh.vertices = completeTail.vertices.ToArray();
+        mMesh.uv = completeTail.uvs.ToArray();
+        mMesh.normals = completeTail.normals.ToArray();
         mMesh.triangles = completeTail.indices.ToArray();
 
         mMeshCmp.mesh = mMesh;
@@ -107,7 +115,11 @@ public class ProceduralMeshRoot : MonoBehaviour
 
     Vector3 lastSectionDir = (start - lastStart).normalized;
     Vector3 lastSectionNormal = new Vector3(-lastSectionDir.z, lastSectionDir.y, lastSectionDir.x);
-    Vector3 sectionDir = (finish - start).normalized;
+    Vector3 sectionSect = (finish - start);
+    //if (sectionSect.magnitude == 0) return new MyMesh();
+    float lastUVLenght = mUVLenght;
+    mUVLenght += sectionSect.magnitude * 0.5f;
+    Vector3 sectionDir = sectionSect.normalized;
     Vector3 sectionNormal = new Vector3(-sectionDir.z, sectionDir.y, sectionDir.x);
 
     Vector3 sectionPos = (start + finish) * 0.5f;
@@ -159,6 +171,8 @@ public class ProceduralMeshRoot : MonoBehaviour
         //Debug.Log("ny: " + y.ToString());
 
         r.vertices.Add(sectionPos + new Vector3(x, y, z));
+        r.uvs.Add(new Vector2((float)(angleSum + i) / divisions, heightSum == -1 ? lastUVLenght : mUVLenght));
+        r.normals.Add(new Vector3(0.0f, 0.0f, -1.0f));
         //r.vertices.Add((heightSum == 0 ? start : finish) + new Vector3(x, y, z));
       }
     }
