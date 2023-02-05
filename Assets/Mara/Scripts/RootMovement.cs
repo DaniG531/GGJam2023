@@ -183,6 +183,7 @@ public class RootMovement : MonoBehaviour
     var mousePos = Input.mousePosition;
     mousePos.z = 10.0f;
     mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+    mousePos.z = 0.0f;
 
     var center = transform.position;
     var desired_velocity = (mousePos - center).normalized * mMaxVelocity;
@@ -215,7 +216,10 @@ public class RootMovement : MonoBehaviour
     }
 
 
-    PlaceLineAsVector(vecLine, transform.position, mMovementDir);
+    if (vecLine != null)
+    {
+      PlaceLineAsVector(vecLine, transform.position, mMovementDir);
+    }
   }
 
   public void AdjustRoot(int firstIndex, int lastIndex)

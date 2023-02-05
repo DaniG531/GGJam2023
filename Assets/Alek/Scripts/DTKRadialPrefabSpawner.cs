@@ -11,6 +11,9 @@ public class DTKRadialPrefabSpawner : DTKPrefabSpawner
     int m_Y;
     int m_Z;
 
+    private float m_time = 0.0f;
+    public float m_spawnTime = 1.0f;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -23,6 +26,16 @@ public class DTKRadialPrefabSpawner : DTKPrefabSpawner
         }
     }
 
+    private void FixedUpdate()
+    {
+        m_time += Time.fixedDeltaTime;
+        if (m_time >= m_spawnTime)
+        {
+            m_time -= m_spawnTime;
+            SpawnPrefab();
+        }
+    }
+
     public override void SpawnPrefab()
     {
         int randomIdx = Random.Range(0, m_prefabList.Count);
@@ -31,31 +44,24 @@ public class DTKRadialPrefabSpawner : DTKPrefabSpawner
             return;
         }
 
-        Vector3 offset = Random.insideUnitSphere * m_radius;
+        Vector3 offset = Random.insideUnitSphere * (m_radius - 1.5f);
         if (m_flatSwitch)
         {
             offset.z = 0.0f;
         }
 
-        if(offset.x < 0.0f)
+        if (offset.y > -1.0f)
         {
-            m_X = -1;
-        }
-        else
-        {
-            m_X = 1;
+            offset.y += 1.0f;
+            offset.y *= -1.0f;
         }
 
-        if (offset.y < 0.0f)
-        {
-            m_Y = -1;
-        }
-        else
-        {
-            m_Y = 1;
-        }
+        float dist = Mathf.Sqrt(offset.x * offset.x + offset.y * offset.y) + 1.5f;
+        float angle = Mathf.Atan2(offset.y, offset.x);
+        offset.x = Mathf.Cos(angle) * dist;
+        offset.y = Mathf.Sin(angle) * dist;
 
-        GameObject spawnedObject = Instantiate(m_prefabList[randomIdx], transform.position + new Vector3(offset.x + m_X, offset.y + m_Y, offset.z), transform.rotation);
+        GameObject spawnedObject = Instantiate(m_prefabList[randomIdx], transform.position + new Vector3(offset.x, offset.y, offset.z), transform.rotation);
         
     }
 
