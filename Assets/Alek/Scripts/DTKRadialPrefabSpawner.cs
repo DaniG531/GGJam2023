@@ -9,7 +9,6 @@ public class DTKRadialPrefabSpawner : DTKPrefabSpawner
     public bool m_flatSwitch = true;
     int m_X;
     int m_Y;
-    int m_Z;
 
     // Start is called before the first frame update
     private void Start()
@@ -22,6 +21,7 @@ public class DTKRadialPrefabSpawner : DTKPrefabSpawner
             }
         }
     }
+
 
     public override void SpawnPrefab()
     {
