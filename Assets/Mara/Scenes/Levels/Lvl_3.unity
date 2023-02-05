@@ -466,7 +466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Life: 10
   m_MaxCooldown: 2
-  m_MaxTimer: 10
+  m_MaxTimer: 5
 --- !u!135 &714646170
 SphereCollider:
   m_ObjectHideFlags: 0
