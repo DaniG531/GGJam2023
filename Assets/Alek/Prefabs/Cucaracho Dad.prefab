@@ -1,0 +1,236 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5223111467113198192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 143795231907833903, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+  m_PrefabInstance: {fileID: 5297048126024047199}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5223111467113198205}
+  - component: {fileID: 5223111467113198194}
+  - component: {fileID: 5223111467113198195}
+  m_Layer: 0
+  m_Name: Cucaracho
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5223111467113198205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 143795231907833890, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+  m_PrefabInstance: {fileID: 5297048126024047199}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223111467113198192}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.011688232, y: 0.042026162, z: 0.13560584}
+  m_LocalScale: {x: 23.188263, y: 23.188261, z: 23.188261}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5223111468087713888}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!33 &5223111467113198194
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 143795231907833901, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+  m_PrefabInstance: {fileID: 5297048126024047199}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223111467113198192}
+  m_Mesh: {fileID: -442135320809832769, guid: cacf380e4525bd344ac7ff85948ba919, type: 3}
+--- !u!23 &5223111467113198195
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 143795231907833900, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+  m_PrefabInstance: {fileID: 5297048126024047199}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223111467113198192}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -888598410623778655, guid: cacf380e4525bd344ac7ff85948ba919, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5223111468087713889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5223111468087713888}
+  - component: {fileID: 5223111468087713890}
+  - component: {fileID: 5223111468087713891}
+  - component: {fileID: 5223111468087713901}
+  m_Layer: 0
+  m_Name: Cucaracho Dad
+  m_TagString: NutrientEnemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5223111468087713888
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223111468087713889}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.74, y: 1.8, z: -0.13560584}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5223111467113198205}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5223111468087713890
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223111468087713889}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &5223111468087713891
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223111468087713889}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5223111468087713901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223111468087713889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c370a70b663e71f408c652957cb32ed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 0}
+  m_Targets: []
+  m_Speed: 0.5
+--- !u!1001 &5297048126024047199
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5223111468087713888}
+    m_Modifications:
+    - target: {fileID: 143795231907833890, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 143795231907833890, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 23.188261
+      objectReference: {fileID: 0}
+    - target: {fileID: 143795231907833890, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 23.188261
+      objectReference: {fileID: 0}
+    - target: {fileID: 143795231907833890, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.011688232
+      objectReference: {fileID: 0}
+    - target: {fileID: 143795231907833890, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.042026162
+      objectReference: {fileID: 0}
+    - target: {fileID: 143795231907833890, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.13560584
+      objectReference: {fileID: 0}
+    - target: {fileID: 143795231907833890, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 143795231907833890, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 143795231907833890, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 143795231907833890, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 143795231907833890, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 143795231907833890, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 143795231907833890, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 143795231907833903, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_Name
+      value: Cucaracho
+      objectReference: {fileID: 0}
+    - target: {fileID: 143795231907833903, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 143795231907833888, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+    - {fileID: 143795231907833891, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+    - {fileID: 143795231907833889, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: ee36fc347ef9e9d4b829355ccce2bae8, type: 3}

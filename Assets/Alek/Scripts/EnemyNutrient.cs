@@ -10,6 +10,9 @@ public class EnemyNutrient : MonoBehaviour
 
     public float m_Speed;
 
+    float m_Timer = 0;
+    float m_MaxTimer = 3f;
+
     // Update is called once per frame
     void Update()
     {
@@ -25,15 +28,20 @@ public class EnemyNutrient : MonoBehaviour
 
         if (m_Targets.Length > 0)
         {
-            //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(m_Target.transform.position - transform.position), m_Speed * Time.deltaTime);
-            //transform.position += transform.forward * m_Speed * Time.deltaTime;
+            
             transform.LookAt(m_Target.transform.position, Vector3.back);
             transform.position = Vector2.MoveTowards(transform.position, m_Target.transform.position, m_Speed * Time.deltaTime);
         }
 
         else
         {
-            Destroy(gameObject);
+            m_Timer += Time.deltaTime;
+
+            if(m_Timer > m_MaxTimer)
+            {
+                Destroy(gameObject);
+            }
+            
         }
 
     }

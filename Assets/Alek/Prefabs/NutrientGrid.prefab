@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5863832467784027934}
-  - component: {fileID: 5863832467784027929}
+  - component: {fileID: 3467396250116443516}
   m_Layer: 0
   m_Name: NutrientGrid
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5863832467784027929
+--- !u!114 &3467396250116443516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,11 +41,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5863832467784027935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b85cac3c6f71ef14f9cbe4fd98ed639f, type: 3}
+  m_Script: {fileID: 11500000, guid: 94c98e9176e67a044b1e8517ee4f791d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_prefabList:
   - {fileID: 5120301710625652140, guid: ebece7d167fa7f242b4c77d681907b03, type: 3}
   m_spawnOnStart: 1
-  m_size: {x: 15, y: 15, z: 0}
+  m_radius: 5
   m_count: 5
+  m_flatSwitch: 1

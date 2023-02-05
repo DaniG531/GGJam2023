@@ -48,7 +48,7 @@ public class PlayerManager : MonoBehaviour
                 m_Life = 10;
             }
 
-            //collision.gameObject.GetComponent<RootMovement>().;
+            gameObject.GetComponent<RootMovement>().AddLength(5);
         }
     }
 
