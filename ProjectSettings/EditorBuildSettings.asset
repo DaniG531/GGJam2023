@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Alek/Scenes/GameScenes/Game Scene 3.unity
     guid: cdd3527c0ace2d44a9f7f77206734abc
+  - enabled: 1
+    path: Assets/Eduardo/Scenes/pause.unity
+    guid: 3d1cf4717f2082d4f8aea359b1dea211
   m_configObjects: {}

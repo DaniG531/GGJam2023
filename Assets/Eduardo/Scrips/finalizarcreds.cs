@@ -9,14 +9,14 @@ public class finalizarcreds : MonoBehaviour
     {
         SceneManager.LoadScene("menu inicial");
     }
-        private void Update()
+    private void Update()
     {
-        
-            if (Input.GetKeyDown(KeyCode.Escape))
 
-            {
-            cambioEscena(); 
-            }
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+
+        {
+            cambioEscena();
+        }
+
     }
 }
