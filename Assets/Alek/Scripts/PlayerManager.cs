@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour
             m_Life -= 1;
         }
 
-        if(m_Life <= 0)
+        if(m_Life <= 0 | EnemyNutrient.m_NoNutrients == true)
         {
             m_GameOver = true;
         }

@@ -13,6 +13,8 @@ public class EnemyNutrient : MonoBehaviour
     float m_Timer = 0;
     float m_MaxTimer = 3f;
 
+    public static bool m_NoNutrients = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -34,14 +36,17 @@ public class EnemyNutrient : MonoBehaviour
         }
 
         else
-        {
+        {            
+
             m_Timer += Time.deltaTime;
 
             if(m_Timer > m_MaxTimer)
             {
                 Destroy(gameObject);
             }
-            
+
+            m_NoNutrients = true;
+
         }
 
     }

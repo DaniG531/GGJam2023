@@ -448,7 +448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vecLine: {fileID: 1810139864}
-  mMaxVelocity: 0.5
+  mMaxVelocity: 0.7
   mMovementDir: {x: 0, y: -5, z: 0}
   mMaxSteeringForce: 1
   mSteeringMass: 10
@@ -839,7 +839,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5223111468087713901, guid: 6a1b64d118258034980bd0fff52c7e8c, type: 3}
       propertyPath: m_Speed
-      value: 0.25
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a1b64d118258034980bd0fff52c7e8c, type: 3}

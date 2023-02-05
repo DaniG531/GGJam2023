@@ -448,7 +448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vecLine: {fileID: 1810139864}
-  mMaxVelocity: 0.5
+  mMaxVelocity: 1
   mMovementDir: {x: 0, y: -5, z: 0}
   mMaxSteeringForce: 1
   mSteeringMass: 10
