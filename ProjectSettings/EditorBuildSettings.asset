@@ -6,21 +6,33 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Mara/Scenes/FirtsScene.unity
+    guid: 32edf678f009530488d1807bd1bfa664
+  - enabled: 1
     path: Assets/Eduardo/Scenes/menu inicial.unity
     guid: 51c62b77c9c43644aa3d51ed1186945e
   - enabled: 1
+    path: Assets/Mara/Scenes/Levels/Lvl_1.unity
+    guid: 1599f63a0865a9e479c72358c8c24eac
+  - enabled: 1
+    path: Assets/Mara/Scenes/Levels/Lvl_2.unity
+    guid: 6c7139111b5d51c4dbbba18f6bf4f58f
+  - enabled: 1
+    path: Assets/Mara/Scenes/Levels/Lvl_3.unity
+    guid: a1151ac060260b449b9a5152ddeeb10d
+  - enabled: 1
+    path: Assets/Mara/Scenes/Cinematics/IntroCinematic.unity
+    guid: 9a5690537f3a49e4683d450593c423f7
+  - enabled: 1
+    path: Assets/Mara/Scenes/Cinematics/Lvl1Cinematic.unity
+    guid: b06bb99922f3e3040bff8d952840136d
+  - enabled: 1
+    path: Assets/Mara/Scenes/Cinematics/Lvl2Cinematic.unity
+    guid: e612594f54028164080b827850bb3954
+  - enabled: 1
+    path: Assets/Mara/Scenes/Cinematics/Lvl3Cinematic.unity
+    guid: 2d46a6314a0c889498d6db0dbfd9c531
+  - enabled: 1
     path: Assets/Eduardo/Scenes/creditos.unity
     guid: 03cf1e599e3b9da4396a6cc3e7a7c1a2
-  - enabled: 1
-    path: Assets/Alek/Scenes/GameScenes/Game Scene 1.unity
-    guid: a5fefdb00cb3c264e8995417576065eb
-  - enabled: 1
-    path: Assets/Alek/Scenes/GameScenes/Game Scene 2.unity
-    guid: 292a30388988b4f40a1a5d72d37b1a7b
-  - enabled: 1
-    path: Assets/Alek/Scenes/GameScenes/Game Scene 3.unity
-    guid: cdd3527c0ace2d44a9f7f77206734abc
-  - enabled: 1
-    path: Assets/Eduardo/Scenes/pause.unity
-    guid: 3d1cf4717f2082d4f8aea359b1dea211
   m_configObjects: {}

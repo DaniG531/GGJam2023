@@ -25,7 +25,7 @@ public class ProgressGame : MonoBehaviour
         if (mPlayer != null)
         {
             mHealthBar.value = mPlayer.m_Life;
-            mProgressBar.value = PlayerManager.m_NutrientCount;
+            mProgressBar.value = mPlayer.m_NutrientCount;
         }
     }
 }

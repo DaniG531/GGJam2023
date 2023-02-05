@@ -139,6 +139,9 @@ public class RootMovement : MonoBehaviour
   public float mMaxSteeringForce = 10.0f;
   public float mSteeringMass = 50.0f;
 
+  public AudioSource mMovementSound;
+
+
   [Header ("Tail")]
   public Transform mTailParent;
   public float mRootLinkMaxLenght;
@@ -204,6 +207,7 @@ public class RootMovement : MonoBehaviour
     var steering = desired_velocity - mMovementDir;
     steering = steering.normalized * mMaxSteeringForce;
     steering = steering / mSteeringMass;
+    steering *= Time.fixedDeltaTime;
     //mMovementDir = (mMovementDir + steering).normalized * newVel;
     mMovementDir = (mMovementDir + steering).normalized * mMaxVelocity;
 
@@ -213,6 +217,11 @@ public class RootMovement : MonoBehaviour
     if (RequestMove())
     {
       transform.position = mHeadProyections;
+      if (!mMovementSound.isPlaying) mMovementSound.Play();
+    }
+    else
+    {
+      mMovementSound.Pause();
     }
 
 

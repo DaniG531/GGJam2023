@@ -9,11 +9,6 @@ public class opciones : MonoBehaviour
     public GameObject eReanudar;
     public GameObject eMenu;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(this);
-    }
-
     public void BottonOptions()
     {
         eOptions.SetActive(true);

@@ -8,13 +8,15 @@ public class GameScenes : MonoBehaviour
     public int mNutrientWinCount = 5;
     public string mNextLevelScene = "";
 
+    public PlayerManager mPlayer;
+
     Scene scene;
     private void Update()
     {
         scene = SceneManager.GetActiveScene();
-        if (PlayerManager.m_NutrientCount >= mNutrientWinCount)
+        if (mPlayer.m_NutrientCount >= mNutrientWinCount)
         {
-            PlayerManager.m_NutrientCount = 0;
+            mPlayer.m_NutrientCount = 0;
             SceneManager.LoadScene(mNextLevelScene);
         }
 

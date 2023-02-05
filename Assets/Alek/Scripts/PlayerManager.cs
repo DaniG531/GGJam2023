@@ -13,8 +13,11 @@ public class PlayerManager : MonoBehaviour
 
     Rigidbody m_Rigidbody;
 
-    public static int m_NutrientCount;
+    public int m_NutrientCount;
     public static bool m_GameOver;
+
+    public AudioSource mObtainSound;
+    public AudioSource mLoseSound;
 
 
     // Start is called before the first frame update
@@ -36,6 +39,9 @@ public class PlayerManager : MonoBehaviour
         if(m_Life <= 0 | EnemyNutrient.m_NoNutrients == true)
         {
             m_GameOver = true;
+            mLoseSound.Play();
+            mLoseSound.GetComponent<MaintainSound>().mPlaying = true; 
+            DontDestroyOnLoad(mLoseSound.gameObject);
         }
     }
 
@@ -59,6 +65,8 @@ public class PlayerManager : MonoBehaviour
             m_NutrientCount += 1;
 
             gameObject.GetComponent<RootMovement>().AddLength(5);
+
+            mObtainSound.Play();
         }
     }
 

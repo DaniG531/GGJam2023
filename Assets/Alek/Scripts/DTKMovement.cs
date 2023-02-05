@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum MovementType
 {
@@ -40,6 +41,12 @@ public class DTKMovement : MonoBehaviour
   public float m_stopRadius = 0.5f;
   public float m_followRadius = 5.0f;
 
+  public Transform m_finalAnchor;
+  public Transform m_finalPosition;
+
+  bool m_moving = true;
+  float m_time = 0.0f;
+
   // Start is called before the first frame update
   void Start()
   {
@@ -61,33 +68,49 @@ public class DTKMovement : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    if (m_movementMethod == MovementMethod.kTransform)
+    if (m_moving)
     {
-      switch (m_movementType)
+      if (m_movementMethod == MovementMethod.kTransform)
       {
-        case MovementType.kConstantMovement:
-          Vector3 transformedDir = transform.TransformDirection(m_constantDirection);
-          transform.position += transformedDir * m_speed * Time.deltaTime;
-          break;
-        case MovementType.kSineMovement:
-          Vector3 sineOffset = Mathf.Sin(Time.time * m_speed) * m_moveDistance * m_moveAxis;
-          transform.position = m_startPosition + sineOffset;
-          break;
-        case MovementType.kCircularMovement:
-          float sine = Mathf.Sin(Time.time * m_speed) * m_radius;
-          float cos = Mathf.Cos(Time.time * m_speed) * m_radius;
-          transform.position = m_startPosition + new Vector3(cos, 0, sine);
-          break;
-        case MovementType.kFollowTarget:
-          Vector3 moveDirection = m_target.position - transform.position;
-          if (moveDirection.magnitude < m_followRadius && moveDirection.magnitude > m_stopRadius)
-          {
-            moveDirection.y = 0;
-            transform.position += moveDirection.normalized * Time.deltaTime * m_speed;
-          }
-          break;
-        default:
-          break;
+        switch (m_movementType)
+        {
+          case MovementType.kConstantMovement:
+            Vector3 transformedDir = transform.TransformDirection(m_constantDirection);
+            transform.position += transformedDir * m_speed * Time.deltaTime;
+            break;
+          case MovementType.kSineMovement:
+            Vector3 sineOffset = Mathf.Sin(Time.time * m_speed) * m_moveDistance * m_moveAxis;
+            transform.position = m_startPosition + sineOffset;
+            break;
+          case MovementType.kCircularMovement:
+            float sine = Mathf.Sin(Time.time * m_speed) * m_radius;
+            float cos = Mathf.Cos(Time.time * m_speed) * m_radius;
+            transform.position = m_startPosition + new Vector3(cos, 0, sine);
+            break;
+          case MovementType.kFollowTarget:
+            Vector3 moveDirection = m_target.position - transform.position;
+            if (moveDirection.magnitude < m_followRadius && moveDirection.magnitude > m_stopRadius)
+            {
+              moveDirection.y = 0;
+              transform.position += moveDirection.normalized * Time.deltaTime * m_speed;
+            }
+            break;
+          default:
+            break;
+        }
+      }
+
+      if (m_finalAnchor.position.y >= m_finalPosition.position.y)
+      {
+        m_moving = false;
+      }
+    }
+    else
+    {
+      m_time += Time.deltaTime;
+      if (m_time >= 5.0f)
+      {
+        SceneManager.LoadScene("menu inicial");
       }
     }
   }
