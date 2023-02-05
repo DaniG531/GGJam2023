@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Alek/Scenes/GameScenes/Game Scene 3.unity
     guid: cdd3527c0ace2d44a9f7f77206734abc
+  - enabled: 1
+    path: Assets/Mara/Scenes/Levels/Lvl_1.unity
+    guid: 1599f63a0865a9e479c72358c8c24eac
+  - enabled: 1
+    path: Assets/Mara/Scenes/Levels/Lvl_2.unity
+    guid: 69905b53169768e449d57f35ec3c40ad
   m_configObjects: {}
